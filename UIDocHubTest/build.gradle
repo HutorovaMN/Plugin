@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
+    id 'org.gradle.test-retry' version '1.6.0'
+}
+
+group 'org.Dochub'
+version '1.0-SNAPSHOT'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    implementation 'org.junit.jupiter:junit-jupiter-params:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.1'
+
+    implementation 'io.netty:netty-codec-http:4.1.104.Final'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    implementation 'org.seleniumhq.selenium:selenium-java:4.17.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.6.4'
+
+    implementation project(':Common')
+
+}
+tasks.register('UiDocHubTests', Test) {
+    useJUnitPlatform {
+        includeTags("UIDocHub")
+    }
+    retry{
+        maxRetries = 2
+        failOnPassedAfterRetry = true
+    }
+}
+test {
+    useJUnitPlatform()
+    retry{
+        maxRetries = 2
+        failOnPassedAfterRetry = true
+    }
+}

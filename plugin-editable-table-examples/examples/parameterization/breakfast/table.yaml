@@ -1,0 +1,67 @@
+docs:
+  editable-table.parameterization-and-transformations:
+    type: editable-table
+    filtration: false
+
+    format: >
+      (   
+          $id := $params.id;
+          
+          $k := $keys(table);
+          $list := $map($keys(table), function($v) {(
+              $lookup(table, $v)
+          )});
+      
+          $obj := $lookup(file."peoples", $id);
+      
+          $res := $merge([$obj, {"weekday": $list}]);
+      
+          {"peoples": {$id: $res}};
+      )
+      
+
+    origin:
+      path: >
+        ($params.id & ".yaml")
+      human: >
+        ($lookup($.peoples, $params.id))
+      body: >
+        ($lookup($.peoples, $params.id).weekday)
+      selectOptions: >
+        ($.lunches)
+      name: >
+        ($lookup($.peoples, $params.id).name)
+      headers: >
+        (
+          $map($.docs."editable-table.parameterization-and-transformations"."headers", function($v) {
+            {
+              "value": $v.value,
+              "width": "200px",
+              "save": {
+                "path": "peoples/" & $params.id & ".yaml"
+              }
+            }
+          });
+        )
+        
+
+    headers:
+      - value: name
+        text: день недели
+        editable: true
+
+      - value: lunches
+        editable: true
+        text: завтрак
+        type: select
+
+        options: >
+          (selectOptions)
+
+    source: >
+      (
+        {
+          "headers": headers,
+          "body": body
+        }
+      )

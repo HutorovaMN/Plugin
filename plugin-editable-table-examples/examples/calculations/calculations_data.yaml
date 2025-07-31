@@ -1,0 +1,10 @@
+calculations:
+  row_1:
+    column_1: "2"
+    column_2: "2"
+  row_2:
+    column_1: "3"
+    column_2: "6"
+  row_3:
+    column_1: 4
+    column_2: "7"

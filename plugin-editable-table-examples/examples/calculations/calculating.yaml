@@ -1,0 +1,63 @@
+docs:
+  editable-table.calculating-cells:
+    type: editable-table
+    # указываем что это редактируемые таблицы
+    filtration: false
+    # filtration - Отражение фильтров
+    # Дефолтное значение:  true
+    # Допустимые значения: true / false
+    format: >
+     (
+         {
+             "calculations": table
+         }     
+     )   
+    # JSONata выражение позволяющее преобразовать данные перед сохранением
+    # Перед сохранением данных осуществляется загрузка данных из файла по указанному пути.
+
+    # Данные из файла доступны как параметр (origin) "file" (зарезервированное имя)
+    # Данные из таблицы доступны как параметр (origin) "table" (зарезервированное имя)
+
+    headers:
+      - value: column_1
+        # value - Идентификатор
+        width: 150px
+        # width - Ширина колонки (px)
+        editable: true
+        # editable - Возможность редактирования
+        save:
+          path: calculations_data.yaml
+        # path - путь к файлу для сохранения
+
+      - value: column_2
+        width: 150px
+        editable: true
+        save:
+          path: calculations_data.yaml
+
+      - value: column_3
+        width: 150px
+        type: fn
+        # Указываем что данные берем из результата выполнения fn
+        fn: >
+          (
+             $multiplication:= 3;
+             $sum:=$number(row."column_1") + $number(row."column_2");
+             $sum*$multiplication;
+          )
+
+        # В функции - суммируются значения полученные из row1 и row2
+        # далее полученное значение умножается на значение multiplication
+        # Во время сохранения данных через UI числа сохраняются как строки,
+        # поэтому для их сложения необходимо привести их к числу с помощью функции $number()
+
+        # Данные из текущей строки доступны как параметр (origin) "row" (зарезервированное имя)
+
+    source: >
+      (
+          {
+              "body": $.calculations
+          }
+      )
+    # Результатом выполнения выражения в source ожидается объект с обязательным полем body и опциональным headers
+    # в данном случае мы возвращаем entity calculations из озера данных

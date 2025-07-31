@@ -1,0 +1,29 @@
+entities:
+  systems:
+    menu: >
+      (
+        $peoples := $keys($.peoples);
+      
+        $map($peoples, function($v, $i, $a) {(
+            $human := $lookup($.peoples, $v);
+            $name := $lookup($human, "name");
+            {
+                "location": "Сложные примеры с параметризацией / Люди/" & $name,
+                "link": "/entities/systems/table?id=" & $v
+            }
+          )})
+      )
+
+    presentations:
+      table:
+        title: Таблица
+        type: markdown
+        template: template.md
+        source: >
+          (
+              $id := $params.id;
+              {
+                  "id": $id
+              }
+          )
+

@@ -1,0 +1,9 @@
+fruits:
+  row_1:
+    fruit: Ананасы
+    count: 5
+    price: 3080192
+  row_2:
+    fruit: Апельсины
+    count: 5
+    price: 4

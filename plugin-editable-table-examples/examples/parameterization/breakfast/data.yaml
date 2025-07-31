@@ -1,0 +1,9 @@
+lunches:
+  - value: dumplings
+    text: Пельмешки
+  - value: porridge
+    text: Кашка
+  - value: meat
+    text: Мясо
+  - value: vegetables
+    text: Овощи

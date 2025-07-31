@@ -1,0 +1,6 @@
+imports:
+  - peoples/root.yaml
+  - menu.yaml
+  - data.yaml
+  - table.yaml
+

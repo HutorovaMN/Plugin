@@ -1,0 +1,8 @@
+row_1:
+  fruit: Бананы
+  count: "7"
+  price: 240
+row_2:
+  fruit: Апельсины
+  count: 20
+  price: 340

@@ -1,0 +1,9 @@
+man:
+  row_1:
+    id: 1
+    name: Иван
+    age: "23"
+  row_2:
+    id: 2
+    name: Сергей
+    age: 33

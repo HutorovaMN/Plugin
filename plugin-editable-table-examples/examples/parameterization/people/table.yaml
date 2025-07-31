@@ -1,0 +1,46 @@
+docs:
+  editable-table.parameterization:
+    type: editable-table
+    filtration: false
+    format: >
+      (
+        { 
+          $params.gender: table
+        }
+      )
+    origin:
+      global: >
+        ($)
+      other: >
+        ($."other-data")
+      body: >
+        ($.$lookup($, $params.gender))
+      gender: >
+        ($params.gender)
+      headers: >
+        (
+          $map($.docs."editable-table.parameterization"."headers", function($v) {
+            {
+              "value": $v.value,
+              "editable": true,
+              "save": {
+                "path": $params.gender & ".yaml"
+              }
+            }
+          });
+        )
+        
+
+    headers:
+      - value: id
+      - value: name
+      - value: age
+
+    source: >
+      (
+      
+        {
+          "headers": headers,
+          "body": body
+        }
+      )

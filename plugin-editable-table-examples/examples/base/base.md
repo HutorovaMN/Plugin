@@ -1,0 +1,241 @@
+# Базовый пример редактируемой таблицы!
+
+![](@document/editable-table.base)
+
+### Описание таблицы:
+
+* Левый столбец позволяет выбирать несколько строк, для их совместного редактирования, *для редактирования всех выделенных строк, используется кнопка "Заполнить выделенное" вверху таблицы*
+* ID - идентификатор пользователя в таблице! *ВНИМАНИЕ! Не путать с идентификатором пользователя при добавлении строки!*
+* Имя - Текстовое поле, стоит фильтр на полное совпадение имени либо его части, Полное - *Петров Петр Петрович*, частичное - *Иванович*, *если одно из данных условий соблюдается цвет ячейки окрашивается в серый цвет!*
+* Возраст - Текстовое поле, стоит фильтр *дети до 18 лет - ячейка оранжевая, старше 70 - зеленая, в остальных случаях, цвет ячейки - синий*
+* Любимое мороженое - выпадающий список, который может содержать одно значение
+* Цвет - выпадающий список, который может содержать в себе любое количество значений
+* Улыбнулся - Чекбокс, *В случае, если галочка стоит, цвет ячейки - зеленый*
+* Ссылки - нередактируемая ячейка, *содержит в себе ссылки на какие-либо источники*
+
+---
+***Ниже приведено описание реализации данной таблицы, код данной таблицы находится - examples/base/base.yaml, данные для таблицы - examples/base/base_data.yaml***
+
+``` yaml
+
+docs:
+  editable-table.base:
+    format: >
+      (
+          {
+              "base": table
+          }
+      )
+    origin:
+      body: >
+        (
+          $.base;
+        )
+      # Может быть использовано любое JSONata выражение для получения данных из архитектурного озера
+      # Для ознакомления с ожидаемой структурой данных выражение возвращает готовые данные
+      # Для примера здесь используется сущность base из озера данных, затем уже в source, передается непосредственно body
+
+      color_options: >
+        ([
+          {"value": "red", "text": "Красный"},
+          {"value": "green", "text": "Зеленый"},
+          {"value": "blue", "text": "Синий"},
+          {"value": "white", "text": "Белый"}
+        ])
+        
+        # Для примера в color_options описаны, данные в JSONata, которые потом можно переиспользовать для каких-то ячеек, в данном случае для ячейки цвет
+
+    type: editable-table
+    # type - Тип документа
+    page_size: 5
+    # page_size - Количество строк на странице
+    # Дефолтное значение: 20
+    # Допустимые значения: положительные целые числа
+    selection: true
+    # selection - Отражение чекбоксов для выбора строк
+    # Дефолтное значение:  false
+    # Допустимые значения: false / true
+    filtration: true
+    # filtration - Флаг позволяющий глобально отключить отображение фильтров в каждой колонке
+    # Дефолтное значение:  true
+    # Допустимые значения: true / false
+    direction: ltr
+    # direction - Направление таблицы
+    # Дефолтное значение:  ltr
+    # Допустимые значения: ltr (left to right) / ttb (top to bottom)
+
+    headers:
+      # headers - Массив заголовков
+      # Обязательное
+
+      - value: ID
+        # value - Идентификатор поля для вывода в колонке
+        # Обязательное
+        width: 100px
+        # width - Ширина колонки (px)
+        # Обязательное значение при указании "pinned: true"
+        filterable: false
+        # filterable - Флаг, позволяет отключить фильтрацию в колонке
+        # Дефолтное значение:  true
+        # Допустимые значения: true / false
+        sortable: false
+        # sortable - Флаг позволяет запретить сортировку по колонке
+        # Дефолтное значение:  true
+        # Допустимые значения: true / false
+        type: text
+        # type - Тип вывода ячеек для указанной колонки
+        # Дефолтное значение:  text
+        # Допустимые значения: text / select / multiple-select / checkbox / link / fn
+        editable: true
+        save:
+          path: base_data.yaml
+
+      - value: name
+        text: Имя
+        # text - Отображаемый заголовок
+        # Дефолтное значение: подставляется из значения value
+        pinned: true
+        # pinned - Позволяет закрепить колонку при горизонтальном скроле
+        # Дефолтное значение:  false
+        # Допустимые значения: true / false
+        # При "pinned: true" необходимо явно установить значение для "width"
+        width: 250px
+        style:
+          # style - Позволяет установить css-inline стили для колонки
+          # Допустимые значения: допустимые css-inline в camelCase нотации
+          fontWeight: 800 # Пример (насыщенность шрифта)
+          fontStyle: italic # Пример (стиль шрифта)
+        editable: true
+        save:
+          path: base_data.yaml
+        styles:
+          # styles - Позволяет указать как дефолтные, так и css-inline стили применяемые по условию (conditions).
+          # Важно: Перечисляется в порядке увеличения приоритета (при установке одинаковых стилей, первое будет перетерто последующим)
+          gray-background-for-ivan-and-petr:
+            # Наименование группы css-правил (любой текст в качестве имени)
+            backgroundColor: gray # Пример css-inline (цвет фона)
+            conditions:
+              # conditions - условия для применения стиля (массив)
+              # При отсутсвии условия группа css-правил применяется по дефолту
+              - condition_type: equal
+                # condition_type - Тип условия
+                # Допустимые значения:
+                # equal - сравнение
+                # includes - проверка наличия подстроки
+                # match - регулярное выражения
+                # '>'   - Больше (Обязательно в ковычках)
+                # '>='  - Больше или равно (Обязательно в ковычках)
+                # '<'   - Меньше (Обязательно в ковычках)
+                # '<='  - Меньше или равно (Обязательно в ковычках)
+                value: Петров Петр Петрович
+                # value - Значение условия (текст, число, regExp)
+              - condition_type: includes
+                value: Иванович
+
+      - value: age
+        text: Возраст
+        width: 100px
+        editable: true
+        save:
+          path: base_data.yaml
+        styles:
+          adult:
+            backgroundColor: blue
+            color: white
+          old:
+            backgroundColor: green
+            conditions:
+              - condition_type: ">"
+                value: 70
+          child:
+            backgroundColor: orange
+            conditions:
+              - condition_type: "<"
+                value: 18
+
+      - value: ice_cream
+        text: Любимое мороженное
+        width: 200px
+        editable: true
+        save:
+          path: base_data.yaml
+        type: select
+
+        options:
+          # options - опции для типа "select" и "multiple-select"
+          # Обязательное для "select" и "multiple-select"
+          # Допустимые значения: массив объектов, с обязательным полем `value` (идентификатор) и опциональным `text` (значение отражаемое в таблице)
+          # Допустимые значения: так же значением может быть JSONata выражение (или origin), выполнение которого вернет аналогичную структуру
+          - value: vanilla
+            text: ванильное
+          - value: chocolate
+            text: шоколадное
+
+        styles:
+          chocolate:
+            backgroundColor: chocolate
+            conditions:
+              - condition_type: equal
+                value: chocolate
+          vanilla:
+            backgroundColor: pink
+            conditions:
+              - condition_type: equal
+                value: vanilla
+
+      - value: color
+        text: Цвет
+        width: 200px
+        editable: true
+        save:
+          path: base_data.yaml
+        type: multiple-select
+        options: >
+          (color_options)
+        # Переиспользуем поле color_options, которое объявляли выше
+
+      - value: smile
+        text: Улыбнулся
+        width: 150px
+        editable: true
+        styles:
+          green_field:
+            backgroundColor: green
+            conditions:
+              - condition_type: equal
+                value: true
+        save:
+          path: base_data.yaml
+        type: checkbox
+
+      - value: link
+        width: 150px
+        editable: false
+        text: Ссылки
+        type: link
+        # Допустимые значения для ссылок:
+        # 1. Текст:
+        #   https://www.google.ru/
+        # 2. Объект:
+        #   {
+        #     "href": "/architect/components/system.auth",
+        #     "text": "Авторизация"
+        #   }
+        # 3. Массив объектов:
+        #   [
+        #       {
+        #           "href": "https://www.google.ru/",
+        #           "text": "google"
+        #       },
+        #       {
+        #           "href": "/docs/example",
+        #           "text": "Пример документа"
+        #       }
+        #   ]
+
+    # Результатом выполнения выражения в source ожидается объект с обязательным полем body и опциональным headers
+    # См. origin/body
+    source: >
+      (
+        {"body": body}
+      )

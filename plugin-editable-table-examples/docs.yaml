@@ -1,0 +1,21 @@
+docs:
+  editable-table.calculate_example:
+    location: Примеры/ 2. Вычисляемые ячейки
+    type: markdown
+    source: examples/calculations/calculations.md
+  editable-table.base_example:
+    location: Примеры/ 1. Базовый пример
+    type: markdown
+    source: examples/base/base.md
+  editable-table.description:
+    location: Описание
+    type: markdown
+    source: Readme.md
+  editable-table.fruits_example:
+    location: Примеры/ 3. Изменение ячеек во время сохранения
+    type: markdown
+    source: examples/fruits/fruits.md
+  dochub.welcome:
+    title: Стартовая страница
+    type: markdown
+    source: Welcome.md

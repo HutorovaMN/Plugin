@@ -1,0 +1,27 @@
+entities:
+  parameterization-table:
+    menu: >
+      (
+        $genders := ["man", "woman"];
+      
+        $map($genders, function($v, $i, $a) {
+          {
+              "location": "Сложные примеры с параметризацией / Завтраки /" & $v,
+              "link": "/entities/parameterization-table/parameterization-table?gender=" & $v
+          }
+        })
+      )
+
+    presentations:
+      parameterization-table:
+        title: Таблица
+        type: markdown
+        template: template.md
+        source: >
+          (
+              $gender := $params.gender;
+              {
+                  "gender": $gender
+              }
+          )
+

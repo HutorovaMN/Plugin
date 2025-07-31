@@ -1,0 +1,21 @@
+peoples:
+  id_0001:
+    name: Иванова Марина
+    age: 35
+    parents:
+      mother: Иванова Лера
+      father: Иванов Сергей
+    children:
+      - Оля
+      - Петя
+    weekday:
+      - name: Пн
+        lunches: meat
+      - name: Вт
+        lunches: vegetables
+      - name: Ср
+        lunches: porridge
+      - name: Чт
+        lunches: meat
+      - name: Птн
+        lunches: porridge

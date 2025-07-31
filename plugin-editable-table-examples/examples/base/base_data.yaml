@@ -1,0 +1,34 @@
+base:
+  row_1:
+    ID: "12"
+    name: jgvj
+    age: "1"
+    ice_cream: vanilla
+    color:
+      - blue
+      - white
+    smile: true
+  row_2:
+    ID: "2"
+    name: Семенов Семен Семенович
+    age: "21"
+    ice_cream: vanilla
+    color:
+      - red
+      - green
+      - blue
+      - white
+    smile: false
+  row_3:
+    ID: "3"
+    name: Петров Петр Петрович
+    age: 80
+    ice_cream: chocolate
+    smile: true
+  row_4:
+    ID: "4"
+    name: Александров Александр Александрович
+    age: 30
+    color:
+      - green
+    smile: false

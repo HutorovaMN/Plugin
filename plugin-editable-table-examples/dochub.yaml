@@ -1,0 +1,3 @@
+imports:
+  - examples/root.yaml
+  - docs.yaml

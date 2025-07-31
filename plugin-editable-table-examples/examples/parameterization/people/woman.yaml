@@ -1,0 +1,9 @@
+woman:
+  row_1:
+    id: "3"
+    name: Ирина
+    age: 16
+  row_2:
+    id: 4
+    name: Лена
+    age: 23

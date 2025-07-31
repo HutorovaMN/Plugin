@@ -1,0 +1,20 @@
+peoples:
+  id_0002:
+    name: Петров Саша
+    age: 30
+    parents:
+      mother: Петрова Саша
+      father: Петров Алексей
+    children:
+      - Миша
+    weekday:
+      - name: Пн
+        lunches: vegetables
+      - name: Вт
+        lunches: porridge
+      - name: Ср
+        lunches: porridge
+      - name: Чт
+        lunches: dumplings
+      - name: Птн
+        lunches: meat

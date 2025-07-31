@@ -1,0 +1,19 @@
+peoples:
+  id_0003:
+    name: Смирнова Оля
+    age: 20
+    parents:
+      mother: Смирнова Алена
+      father: Смирнов Семен
+    weekday:
+      - name: Пн
+        lunches: porridge
+      - name: Вт
+        lunches: meat
+      - name: Ср
+        lunches: dumplings
+      - name: Чт
+        lunches: meat
+      - name: Птн
+        lunches: meat
+

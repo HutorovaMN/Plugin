@@ -1,0 +1,10 @@
+docs :
+  something.seafdrawio:
+   location: Test/seaf2drawio
+   description: seaf2drawio
+   type: seaf2drawio
+   source: seaf_example.yaml
+  dochub.welcome:
+    location: QQQQ
+    type: markdown
+    source: exapleToc.md

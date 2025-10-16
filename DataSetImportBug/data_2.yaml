@@ -1,0 +1,10 @@
+data:
+  data_2: 2
+imports:
+  - data_3н.yaml
+
+#datasets:
+#  d2:
+#    source: >
+#      ({"data":"d3"})
+

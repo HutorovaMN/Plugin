@@ -1,0 +1,10 @@
+#data:
+#  data_1:1
+#imports:
+#  - data_2.yaml
+##  - data_3.yaml
+
+datasets:
+  d1:
+    type: manifest
+    source: data_2.yaml

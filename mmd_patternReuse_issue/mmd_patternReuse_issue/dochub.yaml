@@ -1,0 +1,46 @@
+entities:
+
+  bublicki:
+
+    title: Бублики
+
+    menu: >
+      (
+        [
+          {
+            "location": "Бублики",
+            "link": "/entities/bublicki/wrapper"
+          }
+        ]
+      )
+
+    presentations:
+      wrapper:
+        type: markdown
+        template: wrapper.md
+        source: >
+          (
+            {"count": [
+              {"i": 1},
+              {"i": 2},
+              {"i": 3}
+            ]}
+          )
+
+      inner:
+        type: mermaid
+        template: inner.mmd
+        source: >
+          (
+            $i:= $params.i; /*could be number 1 xor 2*/
+            $res:= $number($i)=1 
+              ? {"bublicks_list": ["A", "B", "C"]}:
+            $number($i)=2
+              ? {"bublicks_list": ["D", "E", "F", "G"]}:
+            $number($i)=3
+                        ? {"bublicks_list": ["Привет", "df", "F", "G"]};
+          )
+
+
+imports:
+  - doc.yaml
